@@ -1,0 +1,99 @@
+<html lang"en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Contact Apps</title>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <main class="main_container">
+            <h1 class="main_container-heading">Contact Apps</h1>
+            <section class="add_contact_container">
+                <h2>Add New Contact</h2>
+                <div class="add_contact_container-input">
+                    <input id="nameInput" class="main_container-input" type="text" placeholder="Name"/>
+                    <input id="emailInput" class="main_container-input" type="text" placeholder="Email"/>
+                    <button id="addButton" class="main_container-button">Add</button>
+                </div>
+            </section>
+            <section class="contact_list_container">
+                <div>
+                    <h2>Contact list</h2>
+                    <div class="contact_list_container-box">
+                        <div class="contact_list_container-box_info">
+                            <img class="contact_list_container-box_info-image" src="https://dummyjson.com/icon/emilys/128" alt="Emily" />
+                            <div class="contact_list_container-box_info-data">
+                                <p class="name">Emily</p>
+                                <p>emily@x.dummyjson.com</p>
+                            </div>
+                        </div>
+                        <button class="contact_list_container-box_info-button" >x</button>
+                    </div>
+                    <div class="contact_list_container-box">
+                        <div class="contact_list_container-box_info">
+                            <img class="contact_list_container-box_info-image" src="https://dummyjson.com/icon/michaelw/128" alt="Emily" />
+                            <div class="contact_list_container-box_info-data">
+                                <p class="name">Emily</p>
+                                <p>emily@x.dummyjson.com</p>
+                            </div>
+                        </div>
+                        <button class="contact_list_container-box_info-button" >x</button>
+                    </div>
+                    <div class="contact_list_container-box">
+                        <div class="contact_list_container-box_info">
+                            <img class="contact_list_container-box_info-image" src="https://dummyjson.com/icon/sophiab/128" alt="Emily" />
+                            <div class="contact_list_container-box_info-data">
+                                <p class="name">Emily</p>
+                                <p>emily@x.dummyjson.com</p>
+                            </div>
+                        </div>
+                        <button class="contact_list_container-box_info-button" >x</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script>
+            function removeContact(event) {
+                const contactBox = event.target.closest('.contact_list_container-box');
+                contactBox.remove();
+            }
+
+            const deleteButtons = document.querySelectorAll('.contact_list_container-box_info-button');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', removeContact);
+            });
+
+            document.getElementById('addButton').addEventListener('click', function() {
+                const name = document.getElementById('nameInput').value;
+                const email = document.getElementById('emailInput').value;
+
+                if (name && email) {
+                    const contactBox = document.createElement('div');
+                    contactBox.classList.add('contact_list_container-box');
+
+                    contactBox.innerHTML = `
+                        <div class="contact_list_container-box_info">
+                            <img class="contact_list_container-box_info-image" src="https://dummyjson.com/icon/emilys/128" alt="${name}" />
+                            <div class="contact_list_container-box_info-data">
+                                <p class="name">${name}</p>
+                                <p>${email}</p>
+                            </div>
+                        </div>
+                        <button class="contact_list_container-box_info-button">x</button>
+                    `;
+
+                    const contactList = document.querySelector('.contact_list_container > div');
+                    contactList.appendChild(contactBox);
+
+                    const newDeleteButton = contactBox.querySelector('.contact_list_container-box_info-button');
+                    newDeleteButton.addEventListener('click', removeContact);
+
+                    document.getElementById('nameInput').value = '';
+                    document.getElementById('emailInput').value = '';
+                } else {
+                    alert('Please enter both a name and an email.');
+                }
+            });
+        </script>
+    </body>
+</html>
